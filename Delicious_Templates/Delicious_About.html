@@ -1,0 +1,49 @@
+{% extends 'Delicious_Base.html' %} {% block title %}About Us{% endblock title %} {% block body %}
+
+<div class="container">
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading text-dark">Delicious ice-Cream Parlour <br><br><span class="pt-lg-5 text-muted">Get in touch</span></h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="lead">Shop No. 09, Shri Krushna Bhavan,<br> Main Road, Warud</p>
+                </div>
+                <div class="col-md-4">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3712.168068311391!2d78.23207911425374!3d21.50113587686144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd5cb5e0a904649%3A0xe5d3de33aab3860e!2sDelicious%20ice%20Creams!5e0!3m2!1sen!2sin!4v1630770547501!5m2!1sen!2sin"
+                        width="350" height="300" style="border:0; border-radius: 20px;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <h3 class="text-warning text-opacity-75 pt-lg-5">Celebrate every moment together with Us </h3>
+
+        </div>
+        <div class="col-md-5">
+            <img src="/static/Delicious_Images/DeliciousBox2.png" class=" bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto " width="500 " height="400 ">
+
+        </div>
+    </div>
+    <hr class="featurette-divider ">
+    <div class="row featurette ">
+        <div class="col-md-7 order-md-2 ">
+            <h2 class="featurette-heading text-warning ">A surprise in every lick.</h2>
+            <p class="lead ">I love dessert. All kinds. But there's something about ice cream that makes me happy. I am drawn to its simplicity. I am perplexed by the endless supply of constantly growing flavor options. And I am always in the mood for sprinkles and a
+                sugar cone.</p>
+        </div>
+        <div class="col-md-5 order-md-1 ">
+            <img src="/static/Delicious_Images/DeliciousAbout.jpg " class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto " width="500 " height="400 ">
+
+        </div>
+    </div>
+    <form action="/about" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="feedback" class="text-muted mt-lg-5 "><h3>Feedback:</h3></label>
+            <textarea style="width: 100%;height: 100px;border-radius: 15px;border-color: darkgray;margin-top: 10px; " name="feedback" id="feedback" cols="30" rows="10" placeholder="Your feedback is very important for us..."></textarea>
+        </div>
+        <div>
+            <button type="submit " class="btn btn-primary mt-lg-3 ">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock body %}

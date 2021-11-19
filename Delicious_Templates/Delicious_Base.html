@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>{% block title %}{% endblock title %} | Delicious ice Creams</title>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 250) {
+                    document.getElementById('navbar_top').classList.add('fixed-top', 'myNavbar');
+                    // add padding top to show content behind navbar
+                    //  navbar_height = document.querySelector('.myNavbar').offsetHeight;
+                    // document.body.style.paddingTop = navbar_height + 'px';
+                } else {
+                    document.getElementById('navbar_top').classList.remove('fixed-top', 'myNavbar');
+                    // remove padding top from body
+                    document.body.style.paddingTop = '0';
+                }
+            });
+        });
+    </script>
+    {% block script %}{% endblock script %}
+
+    <style>
+        .myNavbar {
+            color: palegoldenrod;
+        }
+        
+        .myNavbar a {
+            margin-top: 20px;
+            padding-left: 30px;
+            font-weight: bold;
+            text-align: center;
+            font-family: cursive;
+            transition: 1s;
+        }
+        /* ....responsive */
+        
+        @media only screen and (max-width:700px) {
+            #topImg {
+                height: 60px;
+            }
+            #carouselImg {
+                width: 100%;
+                height: 350px;
+            }
+            .myNavbar {
+                width: 85%;
+            }
+        }
+    </style>
+    {% block login %}{% endblock login %}
+</head>
+
+<body>
+
+    <!-- ....top Image -->
+    <div>
+        <img id="topImg" src="/static/Delicious_Images/DeliciousTopImg.jpg" width="100%" height="110px" alt="">
+    </div>
+
+
+
+    <!-- ....Navigation Bar -->
+    <header>
+        <div id="mainnav" class="container">
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                <nav id="navbar_top" class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/order"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Order</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="/about">About Us</a>
+                    <span>
+                        {% if user.is_authenticated %}
+                         <ul class="navbar-nav ms-auto">
+                         <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle py-2 text-dark text-decoration-none" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i> {{request.user}}
+                      
+                      </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                    </ul> </span> {% else %}
+                    <ul class="navbar-nav ms-auto">
+                        <a class="py-2 text-dark text-decoration-none" href="/userlogin"><i class="fa fa-user-circle" aria-hidden="true"></i> Login</a> </ul>
+                    {% endif %}
+
+
+                </nav>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- ....SuccessError Messege -->
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show m-3 py-2" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close pb-1" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %} {% endif %}
+
+    <!-- ....Body Content -->
+
+    {% block body %}{% endblock body %}
+
+    <div align=center>
+        <hr width="95%">
+    </div>
+    <!-- ....Footer  -->
+    <footer class="container-fluid py-5">
+        <div class="row">
+            <div class="col-3 col-md" style="font-size: 1.25rem;font-weight: 500;margin-left: 100px;">
+                <img style="width: 20px;height: 16px;border-radius: 2px;" src="/static/Delicious_Images/India.png" alt=""> India
+                <small class="d-block mb-3 text-muted">© 2021</small>
+            </div>
+            <div class="col-3 col-md">
+                <h5>Address</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" href="https://www.google.com/maps/place/Tembhurkheda,+Maharashtra+444906/@21.4975372,78.2329184,16z/data=!3m1!4b1!4m5!3m4!1s0x3bd5cbbaced147cf:0x7259eee8f842b9b4!8m2!3d21.4978622!4d78.2369345">At Post Tembhurakheda Ta.Warud Dist.Amravati,Maharashtra <br>Pincode 444-906</a></li>
+
+                </ul>
+            </div>
+            <div class="col-3 col-md">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="link-secondary" target="_blank" href="mailto:krunalgdhote09@gmail.com"><i class="fa fa-envelope-open" aria-hidden="true"></i>krunalgdhote09@gmail.com</a></li>
+                    <li><a class="link-secondary" href="tel:9307871334"><i class="fa fa-phone" aria-hidden="true"></i>+91 9307871334</a></li>
+                    <li><a class="link-secondary" target="_blank" href="https://z-p42.www.instagram.com/krunal_dhote/"><i class="fab fa-instagram"></i>krunal_dhote</a></li>
+                    <li>
+                        <a class="link-secondary" href="#"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-3 col-md" style="margin-top: -50px;">
+                <img src="/static/Delicious_Images/logo.png" alt="">
+            </div>
+        </div>
+    </footer>
+    <div align=center style="margin-top: -50px;">
+        <hr width="95%">
+    </div>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

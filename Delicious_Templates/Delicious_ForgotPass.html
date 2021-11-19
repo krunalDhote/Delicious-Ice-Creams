@@ -1,0 +1,47 @@
+{% extends 'Delicious_Base.html' %} {% block title %}Forgot Password{% endblock title %} {% block script %}
+<script>
+    $(document).ready(function() {
+        $("#topImg").hide();
+        $("#mainnav").hide();
+        $("footer").hide();
+        $("#sendotpbutton").click(function() {
+            $("#otppopup").show();
+            var value = $("#phone").val();
+            $(".otpnumber").text("+91 " + value);
+        });
+    });
+</script>{% endblock script %} {% block body %}
+
+<form action="">
+    {% csrf_token %}
+    <div class="row w-75 align-content-center m-lg-4">
+        <div class="col-12">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" placeholder="+91 " required="" name="phone" value="">
+            <div class="invalid-feedback">
+                Please enter valid number.
+            </div>
+            <span id="sendotpbutton" class=" mt-4 btn btn-secondary">Send OTP</span>
+        </div>
+
+
+
+        <div class=" d-flex justify-content-center align-items-center container">
+            <div id="otppopup" class="card  py-5 px-3" style="border-radius: 28px;border-color: rgb(137, 221, 193);width: 23rem;">
+                <h5 class="m-0">Mobile phone verification</h5><span class="mobile-text">Enter the code we just send on your mobile phone <b class="otpnumber text-danger">+91 </b></span>
+                <div class="d-flex flex-row mt-5 align-items-center"><input name="otp" placeholder="   __ __ __ __" style="margin-left: 110px; background-color: transparent;width: 100px;border-color: rgb(87, 25, 25); border-radius: 15px;"></div>
+                <div class="btn btn-success mt-3 text-center" style=" color: cornsilk;background-color: darkmagenta;border-radius: 20px;border-color: floralwhite;">validate</div>
+                <div class="text-center mt-2"><span class="d-block mobile-text">Don't receive the code?</span><span class="font-weight-bold text-danger cursor">Resend</span></div>
+            </div>
+        </div>
+
+        <div class="form-group pt-3">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control mt-2" id="exampleInputPassword1" placeholder="Create Strong Password" name="password">
+        </div>
+
+
+
+    </div><button class="btn btn-primary m-lg-5" type="submit"> Submit</button>
+    </div>
+</form>{% endblock body %}

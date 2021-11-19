@@ -1,0 +1,48 @@
+{% extends 'Delicious_Base.html' %} {% block title %}Login{% endblock title %} {% block login %}
+
+<style>
+    .login {
+        position: absolute;
+        margin-top: -425px;
+        margin-left: 300px;
+        background-color: transparent;
+    }
+    
+    @media only screen and (max-width:1000px) {
+        .login {
+            height: 20%;
+            width: 60%;
+            position: absolute;
+            margin-top: -207px;
+            margin-left: 1%;
+            background-color: transparent;
+            font-size: smaller;
+        }
+    }
+</style>
+{% endblock login %} {% block body %}
+
+<!-- ....Login -->
+<form action="/userlogin" method="post">
+    {% csrf_token %}
+    <div class="container-fluid">
+        <div>
+            <img width="100%" src="/static/Delicious_Images/BgLogin.jpg" alt="">
+        </div>
+        <div id="log" class="col-3 login">
+            <h1>Login</h1>
+            <div>
+                <h5>Username:</h5>
+                <i class="fa fa-user-circle" aria-hidden="true"></i> <input type="text" placeholder=" Type Username" name="loginusername" style="width: 80%; border-radius: 15px;background-color: transparent;"><br><br>
+            </div>
+            <div>
+                <h5>Password:</h5>
+                <i class="fa fa-unlock" aria-hidden="true"></i> <input type="password" width="40%" type="text" placeholder=" Type Password" name="loginpass" style="width: 80%; border-radius: 15px;background-color: transparent;">
+            </div> <button id="login" class="btn btn-success align-content-center mt-3 mx-lg-5 text-center">Login</button>
+            <p>Don't have an account?<a id="signup" href="/handlesignup"> Sign Up</a></p>
+        </div>
+    </div>
+</form>
+
+
+{% endblock body %}

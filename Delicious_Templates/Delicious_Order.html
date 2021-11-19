@@ -1,0 +1,246 @@
+{% extends 'Delicious_Base.html' %} {% block title %}Order{% endblock title %} {% block script %} {% endblock script %} {% block body %}
+
+<div align="center" style="color: navy;font-family: monospace;">
+    <h1>Wellcome </h1>
+    <h4>to our ice-Cream parlour site order some Delicious</h4>
+</div>
+
+
+<!-- ....Order Items -->
+<main id="products">
+    <div class="container mt-xl-5">
+        <div class="row text-center">
+
+            {% for prod,range in allProds%} {% for i in prod%}
+            <div class="product col-lg-4">
+                <a href="/media/{{i.image}}"><img class="bd-placeholder-img rounded-circle" width="140" height="140" src="/media/{{i.image}}"></a>
+                <h2 id="namepr{{i.id}}" class="name">{{i.product_name}}</h2>
+                <p>{{i.desc}}</p>
+                <p id="pricepr{{i.id}}" hidden>{{i.price}}</p>
+                <div class="divpr">
+                    <p id="plus{{i.id}}" class="plus"><span id="quantity{{i.id}}"> 0 </span><i class="plusButton fa fa-plus-circle text-success" aria-hidden="true"></i></p>
+                </div>
+            </div>
+
+
+            {% endfor %} {% endfor %}
+
+        </div>
+    </div>
+</main>
+
+<!-- ....My Order -->
+<div align="center" class="container mt-xl-5">
+    <div style="color: navy;font-family: monospace;">
+        <h1> My Order</h1>
+        <hr width="20%">
+        <p>Buy more than ₹1000 and get 10% discount.</p>
+    </div>
+</div>
+
+
+
+<div class="container-fluid row text-center">
+    <ul class="text-end col-lg-7" id="rowitem">
+
+        <!-- getting product detail here -->
+    </ul>
+</div>
+
+<div class="container-fluid align-content-center pt-5 row text-center">
+
+    <a href="" id="clearclart" class="pt-0 cancelOrder text-danger"><i class="fa fa-ban" aria-hidden="true"></i>Cancel Order</a>
+
+
+    <p class="discount pt-3 text-primary text-center" style="color: navy;font-family: monospace;">Discount Applied <i class='far fa-grin-hearts'></i></p>
+    <div class="col-lg-4 text-success">
+        <h4 class="total pt-4 text-end">Total =</h4>
+    </div>
+    <div class="col-lg-4">
+        <h3 class="text-end pt-4"><span>₹ </span><span id="totalAmmount">0</span></h4>
+    </div>
+</div>
+
+<div class="container text-center pt-4">
+    <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ordermodal">Place Order</button>
+</div>
+
+
+<div class="container">
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="ordermodal" tabindex="-1" aria-labelledby="ordermodalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ordermodalLabel">Confirm your order by filling the below form.</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" action="/order" method="POST">
+                        {%csrf_token%}
+                        <input type="hidden" name="items_json" id="items_json">
+                        <input type="hidden" name="amount" id="amount">
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">First name</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" value="" required="" name="fname">
+                                <div class="invalid-feedback">
+                                    Valid first name is required.
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Last name</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" value="" required="" name="lname">
+                                <div class="invalid-feedback">
+                                    Valid last name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address.
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label for="city" class="form-label">City</label>
+                                <select class="form-select" id="country" required="" name="city">
+                                      <option value="">Choose...</option>
+                                      <option value="Warud">Warud</option>
+                                      <option value="Tembhurkheda">Tembhurkheda</option>
+                                      <option value="Gavhankund">Gavhankund</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid city.
+                                </div>
+                            </div>
+<div class="col-sm-6">
+                                <label for="firstName" class="form-label">Pin-Code</label>
+                                <input type="text" class="form-control" id="pincode" placeholder="Enter Pin-Code" value="" required="" name="pincode">
+                                <div class="invalid-feedback">
+                                    Valid first name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="address" class="form-label">Address</label>
+                                <input type="text" class="form-control" id="address" placeholder="street/colony, house  number, apartment number" required="" name="address">
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" placeholder="+91 " required="" name="phone" value="">
+                                <div class="invalid-feedback">
+                                    Please enter valid number.
+                                </div>
+                            </div>
+                        </div>
+                        <div id="place" class="col-12 pt-3">
+                            <button id="placeorder" type="submit" class="btn btn-success">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    $(".discount").hide();
+    $(".cancelOrder").hide();
+    //for carts
+    //creating cart and operations o=if already created
+    if (localStorage.getItem('cart') == null) {
+        var cart = {}
+        emptycart(cart)
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        updating(cart);
+    }
+
+    $(document).ready(function() {
+        //adding item in cart
+        $('.divpr').on('click', 'p.plus', function() {
+            var idstr = this.id.slice(4, );
+            if (cart[idstr] != undefined) { //if not undefined means added already
+                qty = cart[idstr][0]++;
+                realqty = qty + 1;
+                $('#quantity' + idstr).text(' ' + realqty + ' ');
+            } else {
+                qty = 1;
+                name = $('#namepr' + idstr).text();
+                price = $('#pricepr' + idstr).text();
+                cart[idstr] = [qty, name, parseInt(price)]; //save in localstorage
+                $('#quantity' + idstr).text(' ' + qty + ' ');
+            }
+            //updateCart(cart) //update cart value if we adding item
+            $('.listitem').remove();
+            updating(cart)
+                //addcart(cart);
+        });
+    });
+
+    $(document).ready(function() {
+        $("#clearclart").click(function() {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            localStorage.clear();
+            cart = {}
+            additem = `<li class='listitem'>
+                <span class="col-4 m-4">No Item Selected</span>
+            </li>`
+            $('#rowitem').append(additem);
+            $('#totalAmmount').text(0);
+        });
+    });
+
+    function emptycart(cart) {
+        var additem = "";
+        //if object is empty
+        additem = `<li class='listitem'>
+                <span class="col-4 m-4">No Item Selected</span>
+            </li>`
+        $('#rowitem').append(additem);
+    }
+
+    function updating(cart) {
+        var additem = "";
+        var totalPrice = 0;
+        var itemPrice = 0;
+        for (var item in cart) {
+            qty = cart[item][0];
+            $('#quantity' + item).text(' ' + qty + ' ');
+
+            let name = cart[item][1];
+            let itemPrice = cart[item][2];
+            totalPrice = totalPrice + qty * itemPrice;
+            additem = `<li class='listitem'>
+                <span class="col-4 m-4">${name}</span><span class="col-4 m-4">₹ ${itemPrice}<span class="col-4 m-4">${qty}</span>
+            </li>`
+            $('#rowitem').append(additem);
+            $('#totalAmmount').text(totalPrice);
+            $('#amount').val(totalPrice);
+            $(".cancelOrder").show();
+
+            //1000+
+            if (totalPrice > 1000) {
+                $(".discount").show();
+                var x = totalPrice / 100;
+                totalPrice -= x;
+                $("#totalAmmount").text(totalPrice.toFixed(0));
+                $('#amount').val(totalPrice);
+            }
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    $('#items_json').val(JSON.stringify(cart));
+</script>
+{% endblock body %}
